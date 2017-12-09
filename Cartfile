@@ -1,0 +1,4 @@
+github "Alamofire/Alamofire" ~> 4.5
+github "Alamofire/AlamofireImage" ~> 3.2
+github "tristanhimmelman/AlamofireObjectMapper" ~> 5.0
+github "pkluz/PKHUD" ~> 5.0
