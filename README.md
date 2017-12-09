@@ -7,7 +7,7 @@ Clone the project
 ```bash
 git clone
 cd Beer
-carthage update
+carthage update --platform iOS
 open Beer\ List.xcodeproj
 ```
 
