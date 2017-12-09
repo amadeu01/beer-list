@@ -16,7 +16,7 @@ class BeerListInteractor: BeerListInteractorInputProtocol {
         do {
             if let beerList = try localDatamanager?.retrieveBeerList() {
                 let beerModelList = beerList.map() {
-                    return BeerModel(id: Int($0.id), title: $0.title!, name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!)
+                    return BeerModel(id: Int($0.id), name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!, tagline: $0.tagline!)
                 }
                 if  beerModelList.isEmpty {
                     remoteDatamanager?.retrieveBeerList()
@@ -41,7 +41,7 @@ extension BeerListInteractor: BeerListRemoteDataManagerOutputProtocol {
         
         for beerModel in beers {
             do {
-                try localDatamanager?.saveBeer(id: beerModel.id, title: beerModel.title, beerDescription: beerModel.beerDescription, imageUrl: beerModel.imageUrl)
+                try localDatamanager?.saveBeer(id: beerModel.id, name: beerModel.name, beerDescription: beerModel.beerDescription, tagline: beerModel.tagline, imageUrl: beerModel.imageUrl)
             } catch  {
                 
             }

@@ -21,7 +21,7 @@ class BeerListLocalDataManager: BeerListLocalDataManagerInputProtocol {
         return try managedOC.fetch(request)
     }
     
-    func saveBeer(id: Int, title: String, beerDescription: String, imageUrl: String) throws {
+    func saveBeer(id: Int, name: String, beerDescription: String, tagline: String, imageUrl: String) throws {
         guard let managedOC = CoreDataStore.managedObjectContext else {
             throw PersistenceError.managedObjectContextNotFound
         }
@@ -30,7 +30,7 @@ class BeerListLocalDataManager: BeerListLocalDataManagerInputProtocol {
                                                     in: managedOC) {
             let beer = Beer(entity: newBeer, insertInto: managedOC)
             beer.id = Int32(id)
-            beer.title = title
+            beer.name = name
             beer.beerDescription = beerDescription
             beer.imageUrl = imageUrl
             try managedOC.save()

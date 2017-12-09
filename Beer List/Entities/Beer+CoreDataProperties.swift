@@ -15,10 +15,10 @@ extension Beer {
         return NSFetchRequest<Beer>(entityName: "Beer");
     }
     
+    @NSManaged public var tagline: String?
     @NSManaged public var imageUrl: String?
     @NSManaged public var beerDescription: String?
     @NSManaged public var name: String?
-    @NSManaged public var title: String?
     @NSManaged public var id: Int32
     
 }

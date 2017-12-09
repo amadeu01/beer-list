@@ -14,7 +14,9 @@ class BeerDetailView: UIViewController {
     
     @IBOutlet weak var beerImageView: UIImageView!
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var beerDescriptionLabel: UILabel!
     
     var presenter: BeerDetailPresenterProtocol?
     
@@ -28,7 +30,8 @@ class BeerDetailView: UIViewController {
 extension BeerDetailView: BeerDetailViewProtocol {
     
     func showBeerDetail(forBeerItem beerItem: BeerModel) {
-        titleLabel?.text = beerItem.title
+        nameLabel?.text = beerItem.name
+        beerDescriptionLabel?.text = beerItem.beerDescription
         let url = URL(string: beerItem.imageUrl)!
         let placeholderImage = UIImage(named: "placeholder")!
         beerImageView?.af_setImage(withURL: url, placeholderImage: placeholderImage)

@@ -11,12 +11,11 @@ import ObjectMapper
 
 struct BeerModel {
     var id = 0
-    var title = ""
     var name = ""
     var beerDescription = ""
-//    var tagline = ""
-    
     var imageUrl = ""
+    var tagline = ""
+    
 //    var abv = 0.0
 //    var ibu = 0.0
 //    var targetFg = 0.0
@@ -35,10 +34,10 @@ extension BeerModel: Mappable {
     
     mutating func mapping(map: Map) {
         id                <- map["id"]
-        title             <- map["title"]
         name              <- map["name"]
-        beerDescription       <- map["description"]
+        beerDescription   <- map["description"]
         imageUrl          <- map["image_url"]
+        tagline          <- map["tagline"]
 //        abv               <- map["abv"]
 //        ibu               <- map["ibu"]
 //        ebc               <- map["ebc"]

@@ -63,6 +63,6 @@ protocol BeerListRemoteDataManagerOutputProtocol: class {
 
 protocol BeerListLocalDataManagerInputProtocol: class {
     func retrieveBeerList() throws -> [Beer]
-    func saveBeer(id: Int, title: String, beerDescription: String, imageUrl: String) throws
+    func saveBeer(id: Int, name: String, beerDescription: String, tagline:String, imageUrl: String) throws
 }
 

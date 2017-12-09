@@ -14,11 +14,14 @@ class BeerTableViewCell: UITableViewCell {
     
     @IBOutlet weak var beerImageView: UIImageView!
     
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var taglineLabel: UILabel!
     
     func set(forBeer beer: BeerModel) {
         self.selectionStyle = .none
-        titleLabel?.text = beer.title
+        nameLabel?.text = beer.name
+        taglineLabel?.text = beer.tagline
         let url = URL(string: beer.imageUrl)!
         let placeholderImage = UIImage(named: "placeholder")!
         beerImageView?.af_setImage(withURL: url, placeholderImage: placeholderImage)
