@@ -27,7 +27,8 @@ class BeerDetailWireFrame: BeerDetailWireFrameProtocol {
     }
     
     static var mainStoryboard: UIStoryboard {
-        return UIStoryboard(name: "Main", bundle: Bundle.main)
+        let bundle = Bundle(for: BeerDetailView.self)
+        return UIStoryboard(name: "Main", bundle: bundle)
     }
     
 }

@@ -5,7 +5,7 @@
 Clone the project
 
 ```bash
-git clone
+git clone https://github.com/amadeu01/beer-list.git
 cd Beer
 carthage update --platform iOS
 open Beer\ List.xcodeproj

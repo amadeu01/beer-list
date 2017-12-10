@@ -2,6 +2,8 @@
 <playground version='6.0' target-platform='ios'>
     <pages>
         <page name='_Introduction'/>
-        <page name='_Scratch'/>
+        <page name='_ScratchWork'/>
+        <page name='BeerDetail'/>
+        <page name='BeerList'/>
     </pages>
 </playground>
