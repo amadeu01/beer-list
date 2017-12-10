@@ -20,7 +20,6 @@ class BeerListView: UIViewController {
         presenter?.viewDidLoad()
         tableView.tableFooterView = UIView()
     }
-    
 }
 
 extension BeerListView: BeerListViewProtocol {

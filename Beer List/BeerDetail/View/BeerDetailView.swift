@@ -22,7 +22,29 @@ class BeerDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        self.view.translatesAutoresizingMaskIntoConstraints = false
         presenter?.viewDidLoad()
+        updateConstraintIfNeeded()
+        
+    }
+    
+    private func updateConstraintIfNeeded() {
+        let beerImageContraints = self.view.constraints.filter { $0.identifier == "beerDetailImageTopContraint"}
+        
+        let statusBarHeight = UIApplication.shared.statusBarFrame.height
+        
+        guard let navigationBarHeight = self.navigationController?.navigationBar.frame.height else {
+            return
+        }
+        
+        guard let beerImageTopContraint = beerImageContraints.first else {
+            return
+        }
+        
+        beerImageTopContraint.constant = navigationBarHeight + statusBarHeight + 5
+        beerImageTopContraint.isActive = true
+        
+        self.view.layoutIfNeeded()
     }
     
 }

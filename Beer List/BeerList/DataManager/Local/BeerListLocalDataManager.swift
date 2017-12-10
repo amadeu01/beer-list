@@ -33,10 +33,14 @@ class BeerListLocalDataManager: BeerListLocalDataManagerInputProtocol {
             beer.name = name
             beer.beerDescription = beerDescription
             beer.imageUrl = imageUrl
+            beer.tagline = tagline
             try managedOC.save()
         }
         throw PersistenceError.couldNotSaveObject
         
     }
     
+    func updateBeer(_ value: Any?, forKey key: String) throws {
+        
+    }
 }

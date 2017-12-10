@@ -16,6 +16,7 @@ extension Beer {
     }
     
     @NSManaged public var tagline: String?
+    @NSManaged public var isFavorite: NSNumber?
     @NSManaged public var imageUrl: String?
     @NSManaged public var beerDescription: String?
     @NSManaged public var name: String?
