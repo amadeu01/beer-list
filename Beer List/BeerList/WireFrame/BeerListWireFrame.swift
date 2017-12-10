@@ -27,14 +27,14 @@ class BeerListWireFrame: BeerListWireFrameProtocol {
             interactor.localDatamanager = localDataManager
             interactor.remoteDatamanager = remoteDataManager
             remoteDataManager.remoteRequestHandler = interactor
-            
             return navController
         }
         return UIViewController()
     }
     
     static var mainStoryboard: UIStoryboard {
-        return UIStoryboard(name: "Main", bundle: Bundle.main)
+        let bundle = Bundle(for: BeerListView.self)
+        return UIStoryboard(name: "Main", bundle: bundle)
     }
     
     

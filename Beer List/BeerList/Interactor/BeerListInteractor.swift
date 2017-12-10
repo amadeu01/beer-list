@@ -14,18 +14,18 @@ class BeerListInteractor: BeerListInteractorInputProtocol {
     
     func retrieveBeerList() {
         do {
-            if let beerList = try localDatamanager?.retrieveBeerList() {
-                let beerModelList = beerList.map() {
-                    return BeerModel(id: Int($0.id), name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!, tagline: $0.tagline!)
-                }
-                if  beerModelList.isEmpty {
-                    remoteDatamanager?.retrieveBeerList()
-                }else{
-                    presenter?.didRetrieveBeer(beerModelList)
-                }
-            } else {
-                remoteDatamanager?.retrieveBeerList()
-            }
+            remoteDatamanager?.retrieveBeerList()
+            
+//            if let beerList = try localDatamanager?.retrieveBeerList() {
+//                let beerModelList = beerList.map() {
+//                    return BeerModel(id: Int($0.id), name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!, tagline: $0.tagline!)
+//                }
+//                if  beerModelList.isEmpty {
+//                    remoteDatamanager?.retrieveBeerList()
+//                }else{
+//                    presenter?.didRetrieveBeer(beerModelList)
+//                }
+//            }
             
         } catch {
             presenter?.didRetrieveBeer([])
