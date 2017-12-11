@@ -22,7 +22,6 @@ class BeerDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.view.translatesAutoresizingMaskIntoConstraints = false
         presenter?.viewDidLoad()
         updateConstraintIfNeeded()
         
