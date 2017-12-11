@@ -15,16 +15,29 @@ struct BeerModel {
     var beerDescription = ""
     var imageUrl = ""
     var tagline = ""
+    var isFavorite = false
+}
+
+extension BeerModel {
+    mutating func favorite() {
+        self.isFavorite = true
+    }
     
-//    var abv = 0.0
-//    var ibu = 0.0
-//    var targetFg = 0.0
-//    var targetOg = 0.0
-//    var ebc = 0.0
-//    var srm = 0.0
-//    var ph = 0.0
-//    var attenuationLevel = 0.0
-//    var foodPairing = ""
+    mutating func unfavorite() {
+        self.isFavorite = false
+    }
+    
+    func favorited() -> BeerModel {
+        var copy = self
+        copy.favorite()
+        return copy
+    }
+    
+    func unfavorited() -> BeerModel {
+        var copy = self
+        copy.unfavorite()
+        return copy
+    }
 }
 
 extension BeerModel: Mappable {
@@ -38,19 +51,7 @@ extension BeerModel: Mappable {
         beerDescription   <- map["description"]
         imageUrl          <- map["image_url"]
         tagline          <- map["tagline"]
-//        abv               <- map["abv"]
-//        ibu               <- map["ibu"]
-//        ebc               <- map["ebc"]
-//        srm               <- map["srm"]
-//        ph                <- map["ph"]
-//        targetFg          <- map["target_fg"]
-//        targetOg          <- map["target_og"]
-//        attenuationLevel  <- map["attenuation_level"]
-//        foodPairing       <- map["food_pairing"]
-//        foodPairing       <- map["foodPairing"]
-        
     }
-    
 }
 
 struct Volume: Mappable {
@@ -61,7 +62,7 @@ struct Volume: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        value       <- map["value"]
+        value    <- map["value"]
         unit     <- map["unit"]
     }
 }
@@ -76,8 +77,8 @@ struct Method: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        mashTemp       <- map["mash_temp"]
-        twist          <- map["twist"]
+        mashTemp   <- map["mash_temp"]
+        twist      <- map["twist"]
     }
 }
 
@@ -89,7 +90,7 @@ struct Fermentation: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        temp       <- map["temp"]
+        temp  <- map["temp"]
     }
 }
 
@@ -102,7 +103,7 @@ struct MashTemp: Mappable {
     
     mutating func mapping(map: Map) {
         temp       <- map["temp"]
-        duration     <- map["duration"]
+        duration   <- map["duration"]
     }
 }
 
@@ -114,7 +115,7 @@ struct Temp: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        value       <- map["value"]
+        value    <- map["value"]
         unit     <- map["unit"]
     }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - View Protocol
+
 protocol BeerListViewProtocol: class {
     var presenter: BeerListPresenterProtocol? { get set }
     
@@ -18,12 +20,20 @@ protocol BeerListViewProtocol: class {
     func showLoading()
     
     func hideLoading()
+    
+    func highlightFavoriteButton(forBeerItem beerItem: BeerModel)
+    
+    func unhighlightFavoriteButton(forBeerItem beerItem: BeerModel)
 }
+
+// MARK: - WireFrame Protocol
 
 protocol BeerListWireFrameProtocol: class {
     static func createBeerListModule() -> UIViewController
     func presentBeerDetailScreen(from view: BeerListViewProtocol, forBeerItem beerItem: BeerModel)
 }
+
+// MARK: - Presenter Protocol
 
 protocol BeerListPresenterProtocol: class {
     var view: BeerListViewProtocol? { get set }
@@ -31,8 +41,15 @@ protocol BeerListPresenterProtocol: class {
     var wireFrame: BeerListWireFrameProtocol? { get set }
     
     func viewDidLoad()
+    
     func showBeerDetail(forBeerItem beerItem: BeerModel)
+    
+    func favoriteBeer(forBeerItem beerItem: BeerModel)
+    
+    func unfavoriteBeer(forBeerItem beerItem: BeerModel)
 }
+
+// MARK: - Interactors Protocol
 
 protocol BeerListInteractorOutputProtocol: class {
     func didRetrieveBeer(_ beers: [BeerModel])
@@ -45,7 +62,10 @@ protocol BeerListInteractorInputProtocol: class {
     var remoteDatamanager: BeerListRemoteDataManagerInputProtocol? { get set }
     
     func retrieveBeerList()
+    func updateBeer(forBeerItem beerItem: BeerModel)
 }
+
+// MARK: - Data Manager Protocol
 
 protocol BeerListDataManagerInputProtocol: class {
 }
@@ -63,6 +83,6 @@ protocol BeerListRemoteDataManagerOutputProtocol: class {
 
 protocol BeerListLocalDataManagerInputProtocol: class {
     func retrieveBeerList() throws -> [Beer]
-    func saveBeer(id: Int, name: String, beerDescription: String, tagline:String, imageUrl: String) throws
+    func saveBeer(forBeerItem beerItem: BeerModel) throws
 }
 

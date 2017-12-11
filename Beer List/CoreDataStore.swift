@@ -27,6 +27,7 @@ class CoreDataStore {
     
     static var managedObjectContext: NSManagedObjectContext? {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            appDelegate.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
             return appDelegate.persistentContainer.viewContext
         }
         return nil

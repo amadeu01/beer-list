@@ -13,39 +13,51 @@ class BeerListInteractor: BeerListInteractorInputProtocol {
     var remoteDatamanager: BeerListRemoteDataManagerInputProtocol?
     
     func retrieveBeerList() {
-        do {
-            remoteDatamanager?.retrieveBeerList()
-            
-//            if let beerList = try localDatamanager?.retrieveBeerList() {
-//                let beerModelList = beerList.map() {
-//                    return BeerModel(id: Int($0.id), name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!, tagline: $0.tagline!)
-//                }
-//                if  beerModelList.isEmpty {
-//                    remoteDatamanager?.retrieveBeerList()
-//                }else{
-//                    presenter?.didRetrieveBeer(beerModelList)
-//                }
-//            }
-            
-        } catch {
-            presenter?.didRetrieveBeer([])
-        }
+        remoteDatamanager?.retrieveBeerList()
     }
     
+    func updateBeer(forBeerItem beerItem: BeerModel) {
+        do {
+            try localDatamanager?.saveBeer(forBeerItem: beerItem)
+        } catch {
+            presenter?.onError()
+        }
+    }
+}
+
+extension BeerListInteractor {
+    private func getLocalBeerList() -> [BeerModel] {
+        do {
+            if let localBeerList = try localDatamanager?.retrieveBeerList() {
+                return localBeerList.map() {
+                    return BeerModel(id: Int($0.id), name: $0.name!, beerDescription: $0.beerDescription!, imageUrl: $0.imageUrl!, tagline: $0.tagline!, isFavorite: Bool(truncating: $0.isFavorite!))
+                }
+            }
+        } catch {}
+        return [BeerModel]()
+    }
 }
 
 extension BeerListInteractor: BeerListRemoteDataManagerOutputProtocol {
     
     func onBeersRetrieved(_ beers: [BeerModel]) {
-        presenter?.didRetrieveBeer(beers)
+        let localBeers = getLocalBeerList()
         
-        for beerModel in beers {
-            do {
-                try localDatamanager?.saveBeer(id: beerModel.id, name: beerModel.name, beerDescription: beerModel.beerDescription, tagline: beerModel.tagline, imageUrl: beerModel.imageUrl)
-            } catch  {
-                
+        let beerList = beers.map() { (beer: BeerModel) -> BeerModel in
+            let localBeer = localBeers.first() { $0.id == beer.id }
+            if localBeer != nil {
+                return BeerModel(id: beer.id, name: beer.name, beerDescription: beer.beerDescription, imageUrl: beer.imageUrl, tagline: beer.tagline, isFavorite: localBeer!.isFavorite)
+            } else {
+                return BeerModel(id: beer.id, name: beer.name, beerDescription: beer.beerDescription, imageUrl: beer.imageUrl, tagline: beer.tagline, isFavorite: false)
             }
         }
+        
+        for beerModel in beerList {
+            do {
+                try localDatamanager?.saveBeer(forBeerItem: beerModel)
+            } catch  {}
+        }
+        presenter?.didRetrieveBeer(beerList)
     }
     
     func onError() {

@@ -20,6 +20,16 @@ class BeerListPresenter: BeerListPresenterProtocol {
         wireFrame?.presentBeerDetailScreen(from: view!, forBeerItem: beerItem)
     }
     
+    func favoriteBeer(forBeerItem beerItem: BeerModel) {
+        let newBeerItem = beerItem.favorited()
+        interactor?.updateBeer(forBeerItem: newBeerItem)
+        view?.highlightFavoriteButton(forBeerItem: newBeerItem)
+    }
+    func unfavoriteBeer(forBeerItem beerItem: BeerModel) {
+        let newBeerItem = beerItem.unfavorited()
+        interactor?.updateBeer(forBeerItem: newBeerItem)
+        view?.unhighlightFavoriteButton(forBeerItem: newBeerItem)
+    }
 }
 
 extension BeerListPresenter: BeerListInteractorOutputProtocol {

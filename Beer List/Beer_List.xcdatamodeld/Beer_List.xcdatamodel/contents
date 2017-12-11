@@ -7,6 +7,16 @@
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tagline" optional="YES" attributeType="String" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+                <constraint value="imageUrl"/>
+                <constraint value="beerDescription"/>
+                <constraint value="name"/>
+                <constraint value="tagline"/>
+                <constraint value="isFavorite"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
         <element name="Beer" positionX="-63" positionY="-18" width="128" height="135"/>
