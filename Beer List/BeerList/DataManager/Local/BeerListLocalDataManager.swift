@@ -49,6 +49,5 @@ class BeerListLocalDataManager: BeerListLocalDataManagerInputProtocol {
                 try managedOC.save()
             }
         }
-//        throw PersistenceError.couldNotSaveObject
     }
 }
