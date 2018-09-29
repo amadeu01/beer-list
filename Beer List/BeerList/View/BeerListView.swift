@@ -19,6 +19,39 @@ class BeerListView: UIViewController {
         super.viewDidLoad()
         presenter?.viewDidLoad()
         tableView.tableFooterView = UIView()
+        tableView.delegate = self
+        tableView.dataSource = self        
+    }
+}
+
+extension BeerListView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BeerCell", for: indexPath) as! BeerTableViewCell
+        
+        let beer = beerList[indexPath.row]
+        cell.set(forBeer: beer)
+        cell.favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        
+        return cell
+    }
+    
+    @objc func favoriteButtonTapped(_ sender: Any) {
+        if let sender = sender as? UIButton {
+            let beerItem = beerList.first() { $0.id == sender.tag }
+            if beerItem!.isFavorite {
+                presenter?.unfavoriteBeer(forBeerItem: beerItem!)
+            } else {
+                presenter?.favoriteBeer(forBeerItem: beerItem!)
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return beerList.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.showBeerDetail(forBeerItem: beerList[indexPath.row])
     }
 }
 
@@ -60,38 +93,6 @@ extension BeerListView: BeerListViewProtocol {
     
     func hideLoading() {
         HUD.hide()
-    }
-}
-
-extension BeerListView: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BeerCell", for: indexPath) as! BeerTableViewCell
-        
-        let beer = beerList[indexPath.row]
-        cell.set(forBeer: beer)
-        cell.favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
-        
-        return cell
-    }
-    
-    @objc func favoriteButtonTapped(_ sender: Any) {
-        if let sender = sender as? UIButton {
-            let beerItem = beerList.first() { $0.id == sender.tag }
-            if beerItem!.isFavorite {
-                presenter?.unfavoriteBeer(forBeerItem: beerItem!)
-            } else {
-                presenter?.favoriteBeer(forBeerItem: beerItem!)
-            }
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return beerList.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.showBeerDetail(forBeerItem: beerList[indexPath.row])
     }
 }
 

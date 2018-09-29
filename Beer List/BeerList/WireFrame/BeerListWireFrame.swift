@@ -11,7 +11,8 @@ import UIKit
 class BeerListWireFrame: BeerListWireFrameProtocol {
     
     class func createBeerListModule() -> UIViewController {
-        let navController = mainStoryboard.instantiateViewController(withIdentifier: "BeersNavigationController")
+        let navController = mainStoryboard
+            .instantiateViewController(withIdentifier: "BeersNavigationController")
         if let view = navController.childViewControllers.first as? BeerListView {
             let presenter: BeerListPresenterProtocol & BeerListInteractorOutputProtocol = BeerListPresenter()
             let interactor: BeerListInteractorInputProtocol & BeerListRemoteDataManagerOutputProtocol = BeerListInteractor()
@@ -29,6 +30,7 @@ class BeerListWireFrame: BeerListWireFrameProtocol {
             remoteDataManager.remoteRequestHandler = interactor
             return navController
         }
+        
         return UIViewController()
     }
     
@@ -36,7 +38,6 @@ class BeerListWireFrame: BeerListWireFrameProtocol {
         let bundle = Bundle(for: BeerListView.self)
         return UIStoryboard(name: "Main", bundle: bundle)
     }
-    
     
     func presentBeerDetailScreen(from view: BeerListViewProtocol, forBeerItem beerItem: BeerModel) {
         let beerDetailViewController = BeerDetailWireFrame.createBeerDetailModule(forBeerItem: beerItem)

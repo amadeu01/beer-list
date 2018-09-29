@@ -33,7 +33,6 @@ class BeerTableViewCell: UITableViewCell {
         nameLabel?.text = "🍺 " + beer.name
         taglineLabel?.text = beer.tagline
         favoriteButton?.tag = beer.id
-        favoriteButton.setImage(#imageLiteral(resourceName: "hear_filled"), for: .selected)
         favoriteButton.isSelected = beer.isFavorite
         let url = URL(string: beer.imageUrl)!
         let placeholderImage = UIImage(named: "placeholder")!

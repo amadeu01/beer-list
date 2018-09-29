@@ -4,13 +4,16 @@ import UIKit
 import PlaygroundSupport
 @testable import BeerListPlayground
 
-
 do {
-    let navigationController = BeerListWireFrame.createBeerListModule()
-    let controllers = navigationController.childViewControllers
-    let beerListController = controllers.first
-    let (parent, _) = playgroundControllers(device: .phone4inch, orientation: .portrait, child: navigationController)
+    let view = BeerListWireFrame.createBeerListModule()
+    
+    let (parent, _) =
+        playgroundControllers(device: .phone4_7inch,
+                              orientation: .portrait,
+                              child: view)
+    
     let frame = parent.view.frame
+    
     PlaygroundPage.current.liveView = parent
     parent.view.frame = frame
     
